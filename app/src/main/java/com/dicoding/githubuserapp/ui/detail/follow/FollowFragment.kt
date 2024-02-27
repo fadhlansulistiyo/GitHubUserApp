@@ -12,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubuserapp.R
-import com.dicoding.githubuserapp.data.response.FollowResponseItem
-import com.dicoding.githubuserapp.data.retrofit.ApiConfig
+import com.dicoding.githubuserapp.data.remote.response.FollowResponseItem
+import com.dicoding.githubuserapp.data.remote.retrofit.ApiConfig
 import com.dicoding.githubuserapp.databinding.FragmentFollowingFollowersBinding
 
 class FollowFragment : Fragment() {

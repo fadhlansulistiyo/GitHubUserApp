@@ -11,7 +11,7 @@ import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubuserapp.R
-import com.dicoding.githubuserapp.data.response.ItemsItem
+import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.databinding.ActivityMainBinding
 import com.google.android.material.search.SearchView
 

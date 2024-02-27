@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.githubuserapp.data.response.ItemsItem
+import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.databinding.ItemUserBinding
 import com.dicoding.githubuserapp.ui.detail.DetailUserActivity
 import com.dicoding.githubuserapp.ui.detail.follow.FollowFragment

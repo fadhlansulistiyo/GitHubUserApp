@@ -10,8 +10,8 @@ import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dicoding.githubuserapp.R
-import com.dicoding.githubuserapp.data.response.DetailUserResponse
-import com.dicoding.githubuserapp.data.retrofit.ApiConfig
+import com.dicoding.githubuserapp.data.remote.response.DetailUserResponse
+import com.dicoding.githubuserapp.data.remote.retrofit.ApiConfig
 import com.dicoding.githubuserapp.databinding.ActivityDetailUserBinding
 import com.dicoding.githubuserapp.ui.detail.follow.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayout
