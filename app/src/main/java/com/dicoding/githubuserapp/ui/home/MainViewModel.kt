@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.githubuserapp.data.GithubUserRepository
 import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.data.remote.response.UserResponse
 import com.dicoding.githubuserapp.data.remote.retrofit.ApiConfig
@@ -13,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val githubUserRepository: GithubUserRepository) : ViewModel() {
 
     private val _listUser = MutableLiveData<List<ItemsItem>>()
     val listUser: LiveData<List<ItemsItem>> = _listUser
@@ -23,6 +24,9 @@ class MainViewModel : ViewModel() {
 
     private val _isFound = MutableLiveData<Boolean>()
     val isFound: LiveData<Boolean> = _isFound
+
+    // insert data
+
 
     companion object {
         private const val TAG = "MainViewModel"

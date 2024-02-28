@@ -13,6 +13,10 @@ class GithubUserRepository private constructor(
 ){
     private val result = MediatorLiveData<Result<List<FavoriteUserEntity>>>()
 
+    fun insert(favoriteUser: FavoriteUserEntity) {
+        appExecutors.diskIO.execute { githubUserDao.insertFavoriteUser(favoriteUser) }
+    }
+
     companion object {
         @Volatile
         private var instance: GithubUserRepository? = null

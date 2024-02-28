@@ -8,5 +8,5 @@ import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
 @Dao
 interface GithubUserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertFavoriteUser(favoriteUser: List<FavoriteUserEntity>)
+    fun insertFavoriteUser(favoriteUser: FavoriteUserEntity)
 }
