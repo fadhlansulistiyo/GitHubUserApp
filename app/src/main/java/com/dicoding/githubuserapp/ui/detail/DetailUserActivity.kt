@@ -2,32 +2,30 @@ package com.dicoding.githubuserapp.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dicoding.githubuserapp.R
+import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
 import com.dicoding.githubuserapp.data.remote.response.DetailUserResponse
-import com.dicoding.githubuserapp.data.remote.retrofit.ApiConfig
 import com.dicoding.githubuserapp.databinding.ActivityDetailUserBinding
 import com.dicoding.githubuserapp.ui.detail.follow.SectionsPagerAdapter
+import com.dicoding.githubuserapp.util.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class DetailUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailUserBinding
 
-    private val detailViewModel by viewModels<DetailViewModel>()
-
     companion object {
         const val EXTRA_LOGIN = "extra_login"
+        const val EXTRA_AVATAR_URL = "extra_avatar_url"
+        const val EXTRA_TYPE = "extra_type"
 
         @StringRes
         private val TAB_TITLES = intArrayOf(
@@ -36,14 +34,24 @@ class DetailUserActivity : AppCompatActivity() {
         )
     }
 
+    private var isFavorite = false
+    private var favoriteUser: FavoriteUserEntity? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+        val detailViewModel: DetailViewModel by viewModels {
+            factory
+        }
+
         // appBar
         setSupportActionBar(binding.detailToolbar)
         binding.detailToolbar.setTitleTextAppearance(this@DetailUserActivity, R.style.TextContent_TitleMedium)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         // viewPager & tabLayout
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         val viewPager: ViewPager2 = binding.tabLayout.viewPager
@@ -55,12 +63,19 @@ class DetailUserActivity : AppCompatActivity() {
         }.attach()
 
         supportActionBar?.elevation = 0f
+
         // get username from Main Activity
         val username = intent.getStringExtra(EXTRA_LOGIN)
+        val avatarURl = intent.getStringExtra(EXTRA_AVATAR_URL)
+        val type = intent.getStringExtra(EXTRA_TYPE)
+
+        val btnFavorite = binding.btnFavorite
+
         // observe detailUser
         detailViewModel.detailUser.observe(this) { detailUser ->
             setDetailUserData(detailUser)
         }
+
         // observe progressBar
         detailViewModel.isLoading.observe(this) {
             showLoading(it)
@@ -69,6 +84,44 @@ class DetailUserActivity : AppCompatActivity() {
         if (username != null) {
             detailViewModel.findDetailUser(username)
         }
+
+        detailViewModel.getFavoriteUserByUsername(username.toString()).observe(this) {
+            favoriteUser = it
+            isFavorite = if (favoriteUser != null) {
+                btnFavorite.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        btnFavorite.context,
+                        R.drawable.baseline_favorite_24
+                    )
+                )
+                true
+            } else {
+                btnFavorite.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        btnFavorite.context,
+                        R.drawable.baseline_favorite_border_24
+                    )
+                )
+                false
+
+            }
+        }
+
+        binding.btnFavorite.setOnClickListener {
+            if (isFavorite) {
+                detailViewModel.deleteFavoriteUser(favoriteUser as FavoriteUserEntity)
+            } else {
+                detailViewModel.setFavoriteUser(
+                    FavoriteUserEntity(
+                        username.toString(),
+                        avatarURl.toString(),
+                        type.toString()
+                    )
+                )
+
+            }
+        }
+
     }
 
     private fun setDetailUserData(detailUser: DetailUserResponse) {

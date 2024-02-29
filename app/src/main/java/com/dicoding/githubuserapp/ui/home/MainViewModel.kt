@@ -1,20 +1,19 @@
 package com.dicoding.githubuserapp.ui.home
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.githubuserapp.data.GithubUserRepository
+import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
 import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.data.remote.response.UserResponse
 import com.dicoding.githubuserapp.data.remote.retrofit.ApiConfig
-import com.dicoding.githubuserapp.ui.detail.DetailUserActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel(private val githubUserRepository: GithubUserRepository) : ViewModel() {
+class MainViewModel : ViewModel() {
 
     private val _listUser = MutableLiveData<List<ItemsItem>>()
     val listUser: LiveData<List<ItemsItem>> = _listUser
@@ -24,9 +23,6 @@ class MainViewModel(private val githubUserRepository: GithubUserRepository) : Vi
 
     private val _isFound = MutableLiveData<Boolean>()
     val isFound: LiveData<Boolean> = _isFound
-
-    // insert data
-
 
     companion object {
         private const val TAG = "MainViewModel"

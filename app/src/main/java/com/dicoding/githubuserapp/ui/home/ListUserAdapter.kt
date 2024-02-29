@@ -38,6 +38,8 @@ class ListUserAdapter : ListAdapter<ItemsItem, ListUserAdapter.MyViewHolder>(DIF
             itemView.setOnClickListener {
                 Intent(itemView.context, DetailUserActivity::class.java).apply {
                     putExtra(DetailUserActivity.EXTRA_LOGIN, item.login)
+                    putExtra(DetailUserActivity.EXTRA_AVATAR_URL, item.avatarUrl)
+                    putExtra(DetailUserActivity.EXTRA_TYPE, item.type)
                     putExtra(FollowFragment.ARG_USERNAME, item.login)
                 }.run {
                     itemView.context.startActivity(this)

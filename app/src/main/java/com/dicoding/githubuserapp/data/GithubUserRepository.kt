@@ -1,5 +1,6 @@
 package com.dicoding.githubuserapp.data
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
 import com.dicoding.githubuserapp.data.local.room.GithubUserDao
@@ -13,8 +14,18 @@ class GithubUserRepository private constructor(
 ){
     private val result = MediatorLiveData<Result<List<FavoriteUserEntity>>>()
 
-    fun insert(favoriteUser: FavoriteUserEntity) {
+    fun setFavoriteUser(favoriteUser: FavoriteUserEntity) {
         appExecutors.diskIO.execute { githubUserDao.insertFavoriteUser(favoriteUser) }
+    }
+
+    fun getFavoriteUserByUsername(username: String): LiveData<FavoriteUserEntity> {
+        return githubUserDao.getFavoriteUserByUsername(username)
+    }
+
+    fun deleteFavoriteUser(favoriteUser: FavoriteUserEntity) {
+        appExecutors.diskIO.execute {
+            githubUserDao.deleteFavoriteUser(favoriteUser)
+        }
     }
 
     companion object {
