@@ -7,19 +7,19 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubuserapp.R
 import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.databinding.ActivityMainBinding
 import com.dicoding.githubuserapp.ui.favorite.FavoriteActivity
+import com.dicoding.githubuserapp.ui.setting.SettingActivity
+import com.dicoding.githubuserapp.util.ViewModelFactory
 import com.google.android.material.search.SearchView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-    private val mainViewModel by viewModels<MainViewModel>()
-
     private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     companion object {
@@ -31,15 +31,25 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.toolbar.setTitleTextAppearance(this@MainActivity, R.style.TextContent_TitleLarge)
-
         // When you display the searchView then press the back button, the searchView will disappear/hide.
-        onBackPressedCallback = this@MainActivity.onBackPressedDispatcher.addCallback(this@MainActivity, false) {
-            binding.searchView.hide()
-        }
+        onBackPressedCallback =
+            this@MainActivity.onBackPressedDispatcher.addCallback(this@MainActivity, false) {
+                binding.searchView.hide()
+            }
+
+        binding.toolbar.setTitleTextAppearance(this@MainActivity, R.style.TextContent_TitleLarge)
 
         val layoutManager = LinearLayoutManager(this)
         binding.itemListUser.rvUser.layoutManager = layoutManager
+
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+        val mainViewModel: MainViewModel by viewModels {
+            factory
+        }
+
+        mainViewModel.getThemeSetting().observe(this) { isDarkModeActive: Boolean ->
+            setTheme(isDarkModeActive)
+        }
 
         mainViewModel.listUser.observe(this) { listUser ->
             setListUser(listUser)
@@ -56,14 +66,12 @@ class MainActivity : AppCompatActivity() {
         with(binding) {
             searchView.apply {
                 searchView.setupWithSearchBar(searchBar)
-
                 addTransitionListener { _, _, newState ->
                     onBackPressedCallback.isEnabled =
                         newState == SearchView.TransitionState.SHOWN || newState == SearchView.TransitionState.SHOWING
                 }
 
-
-                editText.setOnEditorActionListener { textView, actionId, event ->
+                editText.setOnEditorActionListener { _, _, _ ->
                     searchBar.text = searchView.text
                     USER_LOGIN = searchView.text.toString()
                     searchView.hide()
@@ -80,10 +88,11 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                /*R.id.menu2 -> {
-
+                R.id.menu2 -> {
+                    val intent = Intent(this@MainActivity, SettingActivity::class.java)
+                    startActivity(intent)
                     true
-                }*/
+                }
                 else -> false
             }
         }
@@ -110,6 +119,14 @@ class MainActivity : AppCompatActivity() {
             binding.itemListUser.tvDataNotFound.visibility = View.INVISIBLE
             binding.itemListUser.ivNotFound.visibility = View.INVISIBLE
             binding.itemListUser.ivSearch.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun setTheme(isDarkModeActive: Boolean) {
+        if (isDarkModeActive) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 }

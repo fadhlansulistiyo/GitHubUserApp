@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.githubuserapp.R
 import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
 import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.databinding.ActivityFavoriteBinding
@@ -14,12 +15,17 @@ import com.dicoding.githubuserapp.util.ViewModelFactory
 class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavoriteBinding
-    private var favoriteUser: List<FavoriteUserEntity>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // appBar
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.setTitleTextAppearance(this@FavoriteActivity, R.style.TextContent_TitleMedium)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.elevation = 0f
 
         val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
         val favoriteViewModel: FavoriteViewModel by viewModels {
@@ -46,15 +52,8 @@ class FavoriteActivity : AppCompatActivity() {
         binding.rvUser.adapter = adapter
     }
 
-    private fun showDataIsFound(isFound: Boolean) {
-        if (isFound) {
-            binding.notFound.visibility = View.INVISIBLE
-            binding.tvDataNotFound.visibility = View.INVISIBLE
-            binding.ivNotFound.visibility = View.INVISIBLE
-        } else {
-            binding.notFound.visibility = View.VISIBLE
-            binding.tvDataNotFound.visibility = View.VISIBLE
-            binding.ivNotFound.visibility = View.VISIBLE
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

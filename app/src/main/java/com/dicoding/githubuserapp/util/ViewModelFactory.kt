@@ -8,6 +8,7 @@ import com.dicoding.githubuserapp.di.Injection
 import com.dicoding.githubuserapp.ui.detail.DetailViewModel
 import com.dicoding.githubuserapp.ui.favorite.FavoriteViewModel
 import com.dicoding.githubuserapp.ui.home.MainViewModel
+import com.dicoding.githubuserapp.ui.setting.SettingViewModel
 
 class ViewModelFactory private constructor(private val githubUserRepository: GithubUserRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -17,6 +18,10 @@ class ViewModelFactory private constructor(private val githubUserRepository: Git
             return DetailViewModel(githubUserRepository) as T
         } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
             return FavoriteViewModel(githubUserRepository) as T
+        } else if (modelClass.isAssignableFrom(SettingViewModel::class.java)) {
+            return SettingViewModel(githubUserRepository) as T
+        } else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            return MainViewModel(githubUserRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
