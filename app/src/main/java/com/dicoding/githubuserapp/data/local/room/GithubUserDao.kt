@@ -16,6 +16,9 @@ interface GithubUserDao {
     @Query("SELECT * FROM favorite_user WHERE username = :username")
     fun getFavoriteUserByUsername(username: String): LiveData<FavoriteUserEntity>
 
+    @Query("SELECT * FROM favorite_user ORDER BY username ASC")
+    fun getListFavoriteUser(): LiveData<List<FavoriteUserEntity>>
+
     @Delete
     fun deleteFavoriteUser(favoriteUser: FavoriteUserEntity)
 }

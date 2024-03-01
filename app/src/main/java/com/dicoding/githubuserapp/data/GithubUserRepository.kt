@@ -11,7 +11,7 @@ class GithubUserRepository private constructor(
     private val apiService: ApiService,
     private val githubUserDao: GithubUserDao,
     private val appExecutors: AppExecutors
-){
+) {
     private val result = MediatorLiveData<Result<List<FavoriteUserEntity>>>()
 
     fun setFavoriteUser(favoriteUser: FavoriteUserEntity) {
@@ -20,6 +20,10 @@ class GithubUserRepository private constructor(
 
     fun getFavoriteUserByUsername(username: String): LiveData<FavoriteUserEntity> {
         return githubUserDao.getFavoriteUserByUsername(username)
+    }
+
+    fun getListFavoriteUser(): LiveData<List<FavoriteUserEntity>> {
+        return githubUserDao.getListFavoriteUser()
     }
 
     fun deleteFavoriteUser(favoriteUser: FavoriteUserEntity) {

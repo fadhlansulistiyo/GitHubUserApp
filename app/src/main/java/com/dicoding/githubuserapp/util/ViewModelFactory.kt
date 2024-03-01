@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dicoding.githubuserapp.data.GithubUserRepository
 import com.dicoding.githubuserapp.di.Injection
 import com.dicoding.githubuserapp.ui.detail.DetailViewModel
+import com.dicoding.githubuserapp.ui.favorite.FavoriteViewModel
 import com.dicoding.githubuserapp.ui.home.MainViewModel
 
 class ViewModelFactory private constructor(private val githubUserRepository: GithubUserRepository) :
@@ -14,6 +15,8 @@ class ViewModelFactory private constructor(private val githubUserRepository: Git
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(githubUserRepository) as T
+        } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
+            return FavoriteViewModel(githubUserRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

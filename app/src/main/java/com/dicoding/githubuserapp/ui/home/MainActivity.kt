@@ -1,11 +1,9 @@
 package com.dicoding.githubuserapp.ui.home
 
-import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
-import android.window.OnBackInvokedDispatcher
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.activity.viewModels
@@ -13,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubuserapp.R
 import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.databinding.ActivityMainBinding
+import com.dicoding.githubuserapp.ui.favorite.FavoriteActivity
 import com.google.android.material.search.SearchView
 
 class MainActivity : AppCompatActivity() {
@@ -38,23 +37,6 @@ class MainActivity : AppCompatActivity() {
         onBackPressedCallback = this@MainActivity.onBackPressedDispatcher.addCallback(this@MainActivity, false) {
             binding.searchView.hide()
         }
-
-        // TODO
-        /*
-                binding.toolbar.setOnMenuItemClickListener { menuItem ->
-                    when (menuItem.itemId) {
-                        R.id.menu1 -> {
-
-                            true
-                        }
-                        R.id.menu2 -> {
-
-                            true
-                        }
-                        else -> false
-                    }
-                }
-        */
 
         val layoutManager = LinearLayoutManager(this)
         binding.itemListUser.rvUser.layoutManager = layoutManager
@@ -91,7 +73,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu1 -> {
+                    val intent = Intent(this@MainActivity, FavoriteActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                /*R.id.menu2 -> {
 
+                    true
+                }*/
+                else -> false
+            }
+        }
     }
 
     private fun setListUser(user: List<ItemsItem>) {
@@ -117,6 +112,4 @@ class MainActivity : AppCompatActivity() {
             binding.itemListUser.ivSearch.visibility = View.INVISIBLE
         }
     }
-
-
 }

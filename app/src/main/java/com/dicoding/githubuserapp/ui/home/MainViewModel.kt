@@ -4,9 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.githubuserapp.data.GithubUserRepository
-import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
-import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.data.remote.response.UserResponse
 import com.dicoding.githubuserapp.data.remote.retrofit.ApiConfig
 import retrofit2.Call
@@ -15,8 +12,8 @@ import retrofit2.Response
 
 class MainViewModel : ViewModel() {
 
-    private val _listUser = MutableLiveData<List<ItemsItem>>()
-    val listUser: LiveData<List<ItemsItem>> = _listUser
+    private val _listUser = MutableLiveData<List<com.dicoding.githubuserapp.data.remote.response.ItemsItem>>()
+    val listUser: LiveData<List<com.dicoding.githubuserapp.data.remote.response.ItemsItem>> = _listUser
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading

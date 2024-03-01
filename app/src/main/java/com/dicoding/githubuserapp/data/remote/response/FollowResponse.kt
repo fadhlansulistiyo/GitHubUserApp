@@ -11,16 +11,16 @@ data class FollowResponse(
 data class FollowResponseItem(
 
 	@field:SerializedName("gists_url")
-	val gistsUrl: String,
+	val gistsUrl: String? = null,
 
 	@field:SerializedName("repos_url")
-	val reposUrl: String,
+	val reposUrl: String? = null,
 
 	@field:SerializedName("following_url")
-	val followingUrl: String,
+	val followingUrl: String? = null,
 
 	@field:SerializedName("starred_url")
-	val starredUrl: String,
+	val starredUrl: String? = null,
 
 	@field:SerializedName("login")
 	val login: String,
