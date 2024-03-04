@@ -2,11 +2,9 @@ package com.dicoding.githubuserapp.ui.favorite
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubuserapp.R
-import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
 import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.databinding.ActivityFavoriteBinding
 import com.dicoding.githubuserapp.ui.home.ListUserAdapter
@@ -27,14 +25,13 @@ class FavoriteActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.elevation = 0f
 
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvUser.layoutManager = layoutManager
+
         val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
         val favoriteViewModel: FavoriteViewModel by viewModels {
             factory
         }
-
-        val layoutManager = LinearLayoutManager(this)
-        binding.rvUser.layoutManager = layoutManager
-
 
         favoriteViewModel.getListFavoriteUser().observe(this) { users ->
             val items = arrayListOf<ItemsItem>()
