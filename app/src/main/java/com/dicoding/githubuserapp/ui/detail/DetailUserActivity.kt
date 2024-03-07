@@ -1,11 +1,9 @@
 package com.dicoding.githubuserapp.ui.detail
 
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -15,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.dicoding.githubuserapp.R
 import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
 import com.dicoding.githubuserapp.data.remote.response.DetailUserResponse
-import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.databinding.ActivityDetailUserBinding
 import com.dicoding.githubuserapp.ui.detail.follow.SectionsPagerAdapter
 import com.dicoding.githubuserapp.util.ViewModelFactory

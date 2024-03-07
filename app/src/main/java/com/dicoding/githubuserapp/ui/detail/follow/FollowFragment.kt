@@ -1,19 +1,13 @@
 package com.dicoding.githubuserapp.ui.detail.follow
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.githubuserapp.R
 import com.dicoding.githubuserapp.data.remote.response.FollowResponseItem
-import com.dicoding.githubuserapp.data.remote.retrofit.ApiConfig
 import com.dicoding.githubuserapp.databinding.FragmentFollowingFollowersBinding
 
 class FollowFragment : Fragment() {

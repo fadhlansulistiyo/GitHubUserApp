@@ -6,10 +6,8 @@ import android.widget.CompoundButton
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import com.dicoding.githubuserapp.R
-import com.dicoding.githubuserapp.data.setting.SettingPreferences
 import com.dicoding.githubuserapp.databinding.ActivitySettingBinding
 import com.dicoding.githubuserapp.util.ViewModelFactory
-import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingActivity : AppCompatActivity() {
 

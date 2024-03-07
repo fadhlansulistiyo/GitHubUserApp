@@ -1,12 +1,9 @@
 package com.dicoding.githubuserapp.data.local.room
 
 import android.content.Context
-import androidx.room.AutoMigration
-import androidx.room.ColumnInfo
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.AutoMigrationSpec
 import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
 
 @Database(

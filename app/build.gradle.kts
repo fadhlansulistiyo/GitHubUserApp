@@ -17,7 +17,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", "\"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\"")
+        buildConfigField("String", "API_KEY", "//YOUR GITHUB TOKEN")
 
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")

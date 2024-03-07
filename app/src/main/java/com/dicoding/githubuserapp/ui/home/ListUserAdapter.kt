@@ -12,7 +12,6 @@ import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.databinding.ItemUserBinding
 import com.dicoding.githubuserapp.ui.detail.DetailUserActivity
 import com.dicoding.githubuserapp.ui.detail.follow.FollowFragment
-import com.dicoding.githubuserapp.ui.favorite.FavoriteActivity
 
 class ListUserAdapter : ListAdapter<ItemsItem, ListUserAdapter.MyViewHolder>(DIFF_CALLBACK) {
 

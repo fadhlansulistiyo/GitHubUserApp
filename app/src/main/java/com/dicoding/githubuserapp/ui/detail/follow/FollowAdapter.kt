@@ -27,7 +27,7 @@ class FollowAdapter : ListAdapter<FollowResponseItem, FollowAdapter.MyViewHolder
         holder.bind(user)
     }
 
-    class MyViewHolder(val binding: ItemFollowBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemFollowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FollowResponseItem) {
             binding.tvItemName.text = item.login
             binding.tvItemType.text = item.type
