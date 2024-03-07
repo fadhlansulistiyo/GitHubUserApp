@@ -1,8 +1,11 @@
 package com.dicoding.githubuserapp.ui.detail
 
+import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -12,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.dicoding.githubuserapp.R
 import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
 import com.dicoding.githubuserapp.data.remote.response.DetailUserResponse
+import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.databinding.ActivityDetailUserBinding
 import com.dicoding.githubuserapp.ui.detail.follow.SectionsPagerAdapter
 import com.dicoding.githubuserapp.util.ViewModelFactory
@@ -26,6 +30,7 @@ class DetailUserActivity : AppCompatActivity() {
         const val EXTRA_LOGIN = "extra_login"
         const val EXTRA_AVATAR_URL = "extra_avatar_url"
         const val EXTRA_TYPE = "extra_type"
+        const val EXTRA_URL = "extra_url"
 
         @StringRes
         private val TAB_TITLES = intArrayOf(
@@ -68,6 +73,7 @@ class DetailUserActivity : AppCompatActivity() {
         val username = intent.getStringExtra(EXTRA_LOGIN)
         val avatarURl = intent.getStringExtra(EXTRA_AVATAR_URL)
         val type = intent.getStringExtra(EXTRA_TYPE)
+        val url = intent.getStringExtra(EXTRA_URL)
 
         val btnFavorite = binding.btnFavorite
 
@@ -115,10 +121,29 @@ class DetailUserActivity : AppCompatActivity() {
                     FavoriteUserEntity(
                         username.toString(),
                         avatarURl.toString(),
-                        type.toString()
+                        type.toString(),
+                        url.toString()
                     )
                 )
 
+            }
+        }
+
+        binding.detailToolbar.setOnMenuItemClickListener {menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_share -> {
+                    val sendIntent: Intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        val content = "${username}, \n${url}"
+                        putExtra(Intent.EXTRA_TEXT, content)
+                        this.type = "text/plain"
+                    }
+
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    startActivity(shareIntent)
+                    true
+                }
+                else -> false
             }
         }
 
@@ -144,5 +169,10 @@ class DetailUserActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option_detail, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }

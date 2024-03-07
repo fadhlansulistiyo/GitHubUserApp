@@ -29,12 +29,6 @@ class MainViewModel(private val githubUserRepository: GithubUserRepository) : Vi
         return githubUserRepository.getThemeSetting()
     }
 
-    fun saveThemeSetting(isDarkModeActive: Boolean) {
-        viewModelScope.launch {
-            githubUserRepository.saveThemeSetting(isDarkModeActive)
-        }
-    }
-
     companion object {
         private const val TAG = "MainViewModel"
     }

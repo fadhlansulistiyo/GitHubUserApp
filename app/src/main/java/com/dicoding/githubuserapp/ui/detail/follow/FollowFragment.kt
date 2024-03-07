@@ -86,7 +86,6 @@ class FollowFragment : Fragment() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-
         binding.fragmentFollowProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 

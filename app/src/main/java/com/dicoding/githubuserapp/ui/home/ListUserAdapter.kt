@@ -12,6 +12,7 @@ import com.dicoding.githubuserapp.data.remote.response.ItemsItem
 import com.dicoding.githubuserapp.databinding.ItemUserBinding
 import com.dicoding.githubuserapp.ui.detail.DetailUserActivity
 import com.dicoding.githubuserapp.ui.detail.follow.FollowFragment
+import com.dicoding.githubuserapp.ui.favorite.FavoriteActivity
 
 class ListUserAdapter : ListAdapter<ItemsItem, ListUserAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -27,7 +28,7 @@ class ListUserAdapter : ListAdapter<ItemsItem, ListUserAdapter.MyViewHolder>(DIF
         holder.bind(user)
     }
 
-    class MyViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ItemsItem) {
             binding.tvItemName.text = item.login
             binding.tvItemType.text = item.type
@@ -40,6 +41,7 @@ class ListUserAdapter : ListAdapter<ItemsItem, ListUserAdapter.MyViewHolder>(DIF
                     putExtra(DetailUserActivity.EXTRA_LOGIN, item.login)
                     putExtra(DetailUserActivity.EXTRA_AVATAR_URL, item.avatarUrl)
                     putExtra(DetailUserActivity.EXTRA_TYPE, item.type)
+                    putExtra(DetailUserActivity.EXTRA_URL, item.url)
                     putExtra(FollowFragment.ARG_USERNAME, item.login)
                 }.run {
                     itemView.context.startActivity(this)

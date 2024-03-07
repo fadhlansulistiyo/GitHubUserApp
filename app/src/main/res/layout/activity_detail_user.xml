@@ -18,7 +18,8 @@
             android:id="@+id/detail_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            tools:title="Detail" />
+            tools:title="Detail"
+            app:menu="@menu/option_detail"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

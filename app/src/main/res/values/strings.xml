@@ -23,4 +23,5 @@
     <string name="find_github_users">Find GitHub Users!</string>
     <string name="favorite_user">Favorite User</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="share">"Share "</string>
 </resources>

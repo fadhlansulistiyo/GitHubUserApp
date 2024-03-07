@@ -1,14 +1,22 @@
 package com.dicoding.githubuserapp.data.local.room
 
 import android.content.Context
+import androidx.room.AutoMigration
+import androidx.room.ColumnInfo
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.AutoMigrationSpec
 import com.dicoding.githubuserapp.data.local.entity.FavoriteUserEntity
 
-@Database(entities = [FavoriteUserEntity::class], version = 1, exportSchema = false)
+@Database(
+    entities = [FavoriteUserEntity::class],
+    version = 1,
+    exportSchema = true
+)
 abstract class GithubUserDatabase : RoomDatabase() {
     abstract fun githubUserDao(): GithubUserDao
+
 
     companion object {
         @Volatile
@@ -17,8 +25,9 @@ abstract class GithubUserDatabase : RoomDatabase() {
             instance ?: synchronized(this) {
                 instance ?: Room.databaseBuilder(
                     context.applicationContext,
-                    GithubUserDatabase::class.java, "GithubUser.db"
-                ).build()
+                    GithubUserDatabase::class.java, "GithubUserApp.db"
+                )
+                    .build()
             }
     }
 }

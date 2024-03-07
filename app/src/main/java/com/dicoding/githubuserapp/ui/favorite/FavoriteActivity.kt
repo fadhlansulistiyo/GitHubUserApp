@@ -36,7 +36,12 @@ class FavoriteActivity : AppCompatActivity() {
         favoriteViewModel.getListFavoriteUser().observe(this) { users ->
             val items = arrayListOf<ItemsItem>()
             users.map {
-                val item = ItemsItem(login = it.username, type = it.type, avatarUrl = it.avatarUrl)
+                val item = ItemsItem(
+                    login = it.username,
+                    type = it.type,
+                    avatarUrl = it.avatarUrl,
+                    url = it.userUrl
+                )
                 items.add(item)
             }
             setListFavoriteUser(items)
